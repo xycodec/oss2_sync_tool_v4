@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>d5e5f40d-0fb3-493d-9651-faaa143e3d67</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>oss2_sync_tool_v3.py</StartupFile>
+    <StartupFile>oss2_sync_tool_v4.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -22,7 +22,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="oss2_sync_tool.py" />
-    <Compile Include="oss2_sync_tool_v3.py" />
+    <Compile Include="oss2_sync_tool_v4.py" />
     <Compile Include="oss2_sync_tool_v2.py">
       <SubType>Code</SubType>
     </Compile>

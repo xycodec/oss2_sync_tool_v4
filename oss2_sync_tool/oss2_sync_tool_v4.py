@@ -67,7 +67,7 @@ def generate_cache(src_file_list,temp_file_list):
             shutil.copy2(srcEntry,tempEntry)#copy2()会连带着源文件状态(时间戳)一起复制,copy+copystat
 
 def generate_path(base_path,entry,workspace_name):
-    print(entry,workspace_name)
+    #print(entry,workspace_name)
     assert(len(utils.format(entry).split(workspace_name))==2)
     return utils.format(base_path+entry.split(workspace_name)[1])
 
@@ -119,9 +119,9 @@ def update_file(temp_file_list,sep_path):
 def temp2cloud(endpoint,accessKeyId,accessKeySecret,thread_number=16):
     #扫描源目录,并生成临时存储信息到temp_file_list,然后根据temp_file_list来更新临时文件
     src2temp(temp_path)
-    if not bucket.object_exists(cloud_path):
-        bucket.put_object(cloud_path)
-
+    #if not bucket.object_exists(cloud_path):
+    #    bucket.put_object(cloud_path)
+    
     tmp_c=[]
     threads=[]
     total_size=0
@@ -143,7 +143,7 @@ def temp2cloud(endpoint,accessKeyId,accessKeySecret,thread_number=16):
 
 
 def print_info():
-    print('*************** oss2_sync_tool_v3 **********************')
+    print('*************** oss2_sync_tool_v4 **********************')
     print('* input ls:  list the files that need to be updated.   *')
     print('* input ls -u:  update list after execute ls.          *')
     print('* input update:  update all files.                     *')
@@ -178,7 +178,7 @@ def ls_part(ls_list):
                 ls_update_list.append(generate_path(temp_path,entry,local_workspace_name))
 
 
-def ls(thread_number=20):
+def ls(thread_number=24):
     ls_list=[]#存放扫描的结果
     for entry_list in local_path_list:
         utils.scan(entry_list,ls_list,include_suffix)
@@ -242,7 +242,7 @@ def interact(show_info=True):
             print("ls_update_list is empty,no need to update.")
             print("please check for updates to execute command \'ls\' firstly.")
         else:
-            update_file(ls_update_list,local_workspace_name)
+            update_file(ls_update_list,temp_cachespace_name)
         ls_update_list.clear()
         if show_info:
             interact(True)
@@ -267,6 +267,7 @@ def interact(show_info=True):
             interact(False)
     elif command=='restore':
         restore()
+        print('restore OK.')
         if show_info:
             interact(True)
         else:

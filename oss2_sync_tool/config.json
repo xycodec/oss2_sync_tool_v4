@@ -2,13 +2,41 @@
   "endpoint": "http://oss-cn-shanghai.aliyuncs.com",
   "accessKeyId": "LTAIdCjJRKVEhRh3",
   "accessKeySecret": "SssX0EYZj6Kr3mOvkSgAgV18KSYtqY",
-  "bucket_name": "xycode2",
+  "bucket_name": "xycode1",
   "local_path_list": [
-    "C:/Users/xycode/Documents/WorkSpace/"
+    "C:/Users/xycode/Documents/WorkSpace/",
+    "C:/360SoftMgrGame/WorkSpace/"
   ],
   "temp_path": "C:/Users/xycode/Documents/oss2_sync_tool Cache/",
   "cloud_path": "elitebook_workspace/",
-  "include_suffix": [ "c", "cpp", "java", "py", "txt", "xml", "properties", "h", "hpp", "cc", "proto", "md" ],
+  "include_suffix": [
+    "c",
+    "cpp",
+    "java",
+    "py",
+    "h",
+    "hpp",
+    "cc",
+    "sh",
+
+    "xml",
+    "proto",
+    "md",
+
+    "config",
+    "global",
+    "log",
+    "properties",
+
+    "txt",
+    "doc",
+    "docx",
+    "ppt",
+    "pptx",
+    "xls",
+    "xlsx",
+    "vsdx"
+  ],
 
   "local_workspace_name": "WorkSpace",
   "temp_cachespace_name": "oss2_sync_tool Cache"

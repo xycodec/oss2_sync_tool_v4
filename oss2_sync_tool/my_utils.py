@@ -39,10 +39,11 @@ def newer(srcEntry,destEntry):
 def scan(path,src_file_list,include_suffix):
     if not os.path.exists(path):
         return
-    if os.path.isdir(path):
+    if os.path.isdir(path):#递归到目录
        for entry in os.listdir(path):
-           scan(path+'/'+entry,src_file_list,include_suffix)
-    else:
+           if not entry.split('/')[-1][0] in ['.']:
+            scan(path+'/'+entry,src_file_list,include_suffix)
+    else:#递归到文件了
         if path.split('.')[-1] in include_suffix or path.split('.')[0]==path:#对于没有后缀的文件如Makefile等
             src_file_list.append(path)
             #print(path)

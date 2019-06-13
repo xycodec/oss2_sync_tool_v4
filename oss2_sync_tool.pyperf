@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<ProfilingTarget xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ProjectTarget>
+    <TargetProject>d5e5f40d-0fb3-493d-9651-faaa143e3d67</TargetProject>
+    <FriendlyName>oss2_sync_tool</FriendlyName>
+  </ProjectTarget>
+  <Reports>
+    <Report>
+      <Filename>C:\Users\pc\AppData\Local\Temp\oss2_sync_tool_20190210.vsp</Filename>
+    </Report>
+  </Reports>
+</ProfilingTarget>

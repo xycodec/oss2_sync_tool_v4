@@ -18,6 +18,7 @@
     "hpp",
     "cc",
     "sh",
+    "ipynb",
 
     "xml",
     "proto",

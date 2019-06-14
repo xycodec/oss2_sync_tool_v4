@@ -13,6 +13,8 @@ accessKeySecret
 auth=oss2.Auth(accessKeyId,accessKeySecret)
 bucket=oss2.Bucket(auth,endpoint,Bucket_name)
 
-*版本4:
-*注意  
+**版本4:  
+
+**注意: 
+
 因为采用动态加载目录的方式,需指定工作目录的name,以此作为分割的依据,例如想把xycode/documents/workspace/目录下的满足过滤条件的文件夹与文件同步到oss2云端,这里的workspace就是工作目录的name,需在config.json中配置好,目前只支持单一name分割,暂时无添加支持多name分割的打算.所以须保持待更新的目录的name一致.

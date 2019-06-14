@@ -2,7 +2,7 @@
   "endpoint": "http://oss-cn-shanghai.aliyuncs.com",
   "accessKeyId": "LTAIdCjJRKVEhRh3",
   "accessKeySecret": "SssX0EYZj6Kr3mOvkSgAgV18KSYtqY",
-  "bucket_name": "xycode1",
+  "bucket_name": "xycode2",
   "local_path_list": [
     "C:/Users/xycode/Documents/WorkSpace/",
     "C:/360SoftMgrGame/WorkSpace/"

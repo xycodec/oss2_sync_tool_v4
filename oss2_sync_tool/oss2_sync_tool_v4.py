@@ -17,6 +17,7 @@ auth=object()
 bucket=object()
 local_workspace_name=''
 temp_cachespace_name=''
+show_info=True
 def init():
     with open('config.json','r') as f:
         config_info=json.load(f)
@@ -33,6 +34,7 @@ def init():
         global bucket
         global local_workspace_name
         global temp_cachespace_name
+        global show_info
         endpoint=config_info['endpoint']
         accessKeyId=config_info['accessKeyId']
         accessKeySecret=config_info['accessKeySecret']
@@ -49,6 +51,7 @@ def init():
         bucket=oss2.Bucket(auth,endpoint,bucket_name)
         local_workspace_name=config_info['local_workspace_name']
         temp_cachespace_name=config_info['temp_cachespace_name']
+        show_info=config_info['show_info']
 
 src_file_list=[]
 temp_file_list=[]
@@ -116,7 +119,7 @@ def update_file(temp_file_list,sep_path):
         
 
 #将临时文件同步更新到云端,不直接从源文件同步到云端,做了隔离,对源文件只有read权限,对临时文件才有write权限
-def temp2cloud(endpoint,accessKeyId,accessKeySecret,thread_number=16):
+def temp2cloud(endpoint,accessKeyId,accessKeySecret,thread_number=24):
     #扫描源目录,并生成临时存储信息到temp_file_list,然后根据temp_file_list来更新临时文件
     src2temp(temp_path)
     #if not bucket.object_exists(cloud_path):
@@ -228,12 +231,12 @@ def restore():
     include_suffix=store_include_suffix.copy()
 
 
-def interact(show_info=True):
-    if show_info: print_info()
+def interact(temp_show_info):
+    if temp_show_info: print_info()
     command=input('please input a legal commmad:\n')
     if command=='ls':
         ls()
-        if show_info:
+        if temp_show_info:
             interact(True)
         else:
             interact(False)
@@ -244,13 +247,13 @@ def interact(show_info=True):
         else:
             update_file(ls_update_list,temp_cachespace_name)
         ls_update_list.clear()
-        if show_info:
+        if temp_show_info:
             interact(True)
         else:
             interact(False)
     elif command=='cfg-s':
         cfg_suffix()
-        if show_info:
+        if temp_show_info:
             interact(True)
         else:
             interact(False)
@@ -261,14 +264,14 @@ def interact(show_info=True):
             bucket=oss2.Bucket(auth,endpoint,oss2_bucket_name)
         else:
             print('illegal oss2-bucket-name!')
-        if show_info:
+        if temp_show_info:
             interact(True)
         else:
             interact(False)
     elif command=='restore':
         restore()
         print('restore OK.')
-        if show_info:
+        if temp_show_info:
             interact(True)
         else:
             interact(False)
@@ -279,19 +282,19 @@ def interact(show_info=True):
             os.makedirs(temp_path)
         #src2temp(temp_path)
         temp2cloud(endpoint,accessKeyId,accessKeySecret)
-        if show_info:
+        if temp_show_info:
             interact(True)
         else:
             interact(False)
     elif command=='clear':
         clear()
-        if show_info:
+        if temp_show_info:
             interact(True)
         else:
             interact(False)
     elif command=='help':
         print_info()
-        if show_info:
+        if temp_show_info:
             interact(True)
         else:
             interact(False)
@@ -305,7 +308,7 @@ def interact(show_info=True):
         return
     else:
         print('incorrect command,please input again.')
-        if show_info:
+        if temp_show_info:
             interact(True)
         else:
             interact(False)
@@ -316,6 +319,6 @@ if __name__ == '__main__':
     log_file_path = "log.log"
     oss2.set_file_logger(log_file_path, 'oss2', logging.CRITICAL)
     init()
-    interact()
+    interact(show_info)
 
 

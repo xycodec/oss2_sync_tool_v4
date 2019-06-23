@@ -38,7 +38,7 @@
     "xls",
     "xlsx",
     "vsdx",
-	"pdf"
+	  "pdf"
   ],
 
   "local_workspace_name": "WorkSpace",

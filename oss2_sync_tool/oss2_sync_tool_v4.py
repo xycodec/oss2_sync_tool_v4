@@ -119,7 +119,7 @@ def update_file(temp_file_list,sep_path):
         
 
 #将临时文件同步更新到云端,不直接从源文件同步到云端,做了隔离,对源文件只有read权限,对临时文件才有write权限
-def temp2cloud(endpoint,accessKeyId,accessKeySecret,thread_number=24):
+def temp2cloud(endpoint,accessKeyId,accessKeySecret,thread_number=20):
     #扫描源目录,并生成临时存储信息到temp_file_list,然后根据temp_file_list来更新临时文件
     src2temp(temp_path)
     #if not bucket.object_exists(cloud_path):
@@ -132,7 +132,11 @@ def temp2cloud(endpoint,accessKeyId,accessKeySecret,thread_number=24):
         tmp_c.append(list())
     for i in range(len(temp_file_list)):
         tmp_c[i%thread_number].append(temp_file_list[i])
-        total_size+=os.path.getsize(temp_file_list[i])
+        if os.path.exists(temp_file_list[i]):
+            total_size+=os.path.getsize(temp_file_list[i])
+            # print(os.path.getsize(temp_file_list[i]))
+        else:
+            print('ERROR: '+temp_file_list[i]+' not exist!')
     for i in range(thread_number):
         threads.append(threading.Thread(target=update_file,args=(tmp_c[i],temp_cachespace_name,)))#特别注意要有逗号
     for t in threads:
@@ -141,7 +145,7 @@ def temp2cloud(endpoint,accessKeyId,accessKeySecret,thread_number=24):
     for t in threads:
         t.join()
     
-    print('scan file number: {0}\ntotal size: {0} kB'.format(len(temp_file_list),total_size/1000))
+    print('scan file number: {0}\ntotal size: {1} KB'.format(len(temp_file_list),total_size/1000))
 
 
 

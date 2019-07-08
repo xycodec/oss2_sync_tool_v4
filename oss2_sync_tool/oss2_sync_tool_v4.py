@@ -170,7 +170,9 @@ def ls_part(ls_list):
         entry=utils.format(entry)
         #print(temp_cloud_path)
         if not bucket.object_exists(temp_cloud_path):#云端不存在的话
-            print(entry)
+            #print(entry,end='')
+            #print("\033[0;31;40m ,Size: {0} KB.\033[0m".format(str(os.path.getsize(entry)/1000))) 
+            print(entry+', SIZE: '+str(os.path.getsize(entry)/1000)+' KB.')
             generate_cache([entry],[generate_path(temp_path,entry,local_workspace_name)])#先生成缓存
             if not generate_path(temp_path,entry,local_workspace_name) in ls_update_list:#防止重复添加
             	ls_update_list.append(generate_path(temp_path,entry,local_workspace_name))
@@ -179,7 +181,7 @@ def ls_part(ls_list):
         local_last_modified_time=int(statinfo.st_mtime)-28800#统一时间戳以秒为单位,北京时间-8小时=GMT
         cloud_last_modified_time=utils.date_to_num(bucket.get_object(temp_cloud_path))
         if local_last_modified_time>cloud_last_modified_time:#本地文件较新
-            print(entry)
+            print(entry+', SIZE: '+str(os.path.getsize(entry)/1000)+' KB.')
             shutil.copy2(entry,generate_path(temp_path,entry,local_workspace_name))
             if not generate_path(temp_path,entry,local_workspace_name) in ls_update_list:#防止重复添加
                 ls_update_list.append(generate_path(temp_path,entry,local_workspace_name))
@@ -202,6 +204,7 @@ def ls(thread_number=24):
         t.start()
     for t in threads:
         t.join()
+
 
 def clear():
     str=input('clear all temp file?(y/n)\n')

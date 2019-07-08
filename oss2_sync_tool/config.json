@@ -5,7 +5,8 @@
   "bucket_name": "xycode2",
   "local_path_list": [
     "C:/Users/xycode/Documents/WorkSpace/",
-	  "C:/WorkSpace/"
+    "C:/WorkSpace/",
+    "E:/WorkSpace/"
   ],
   "temp_path": "C:/Users/xycode/Documents/oss2_sync_tool Cache/",
   "cloud_path": "elitebook_workspace/",
@@ -19,6 +20,7 @@
     "cc",
     "sh",
     "ipynb",
+    "sln",
 
     "xml",
     "proto",

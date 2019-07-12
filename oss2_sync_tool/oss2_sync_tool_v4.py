@@ -1,3 +1,4 @@
+#coding=utf-8
 import os,shutil
 import oss2
 import logging
@@ -181,6 +182,8 @@ def ls_part(ls_list):
         local_last_modified_time=int(statinfo.st_mtime)-28800#统一时间戳以秒为单位,北京时间-8小时=GMT
         cloud_last_modified_time=utils.date_to_num(bucket.get_object(temp_cloud_path))
         if local_last_modified_time>cloud_last_modified_time:#本地文件较新
+            #print(entry,end='')
+            #print("\033[0;31;40m ,Size: {0} KB.\033[0m".format(str(os.path.getsize(entry)/1000)))
             print(entry+', SIZE: '+str(os.path.getsize(entry)/1000)+' KB.')
             shutil.copy2(entry,generate_path(temp_path,entry,local_workspace_name))
             if not generate_path(temp_path,entry,local_workspace_name) in ls_update_list:#防止重复添加
@@ -323,7 +326,7 @@ def interact(temp_show_info):
 
 if __name__ == '__main__':
     # 设置日志等级
-    log_file_path = "log.log"
+    log_file_path = "oss2_sync.log"
     oss2.set_file_logger(log_file_path, 'oss2', logging.CRITICAL)
     init()
     interact(show_info)

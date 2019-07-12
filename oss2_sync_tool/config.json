@@ -4,9 +4,9 @@
   "accessKeySecret": "SssX0EYZj6Kr3mOvkSgAgV18KSYtqY",
   "bucket_name": "xycode2",
   "local_path_list": [
-    "C:/Users/xycode/Documents/WorkSpace/",
-    "C:/WorkSpace/",
-    "E:/WorkSpace/"
+    "C:/Users/xycode/Documents/$WorkSpace$/",
+    "C:/$WorkSpace$/",
+    "E:/$WorkSpace$/"
   ],
   "temp_path": "C:/Users/xycode/Documents/oss2_sync_tool Cache/",
   "cloud_path": "elitebook_workspace/",
@@ -30,7 +30,7 @@
     "global",
     "log",
     "properties",
-	  "json",
+    "json",
 
     "txt",
     "doc",
@@ -40,14 +40,14 @@
     "xls",
     "xlsx",
     "vsdx",
-	  "pdf"
+    "pdf"
   ],
 
-  "local_workspace_name": "WorkSpace",
+  "local_workspace_name": "$WorkSpace$",
   "temp_cachespace_name": "oss2_sync_tool Cache",
-  
-  "log_level":"CRITICAL",
-  "show_info":true
+
+  "log_level": "CRITICAL",
+  "show_info": true
 }
 
 

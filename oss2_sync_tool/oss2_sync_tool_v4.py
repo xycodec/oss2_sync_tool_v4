@@ -19,9 +19,11 @@ bucket=object()
 local_workspace_name=''
 temp_cachespace_name=''
 show_info=True
+log_level=''
 def init():
     with open('config.json','r') as f:
         config_info=json.load(f)
+        #print(config_info)
         #配置信息
         global endpoint
         global accessKeyId
@@ -36,23 +38,22 @@ def init():
         global local_workspace_name
         global temp_cachespace_name
         global show_info
+        global log_level
         endpoint=config_info['endpoint']
         accessKeyId=config_info['accessKeyId']
         accessKeySecret=config_info['accessKeySecret']
-        #local_path='C:/Users/pc/workspace/java workspace/'
-        local_path_list=config_info['local_path_list']#因为分割符的位置在下面是硬性指定的,所以最好保证列表中的目录是等深度的,不然就得单独处理
-        #'C:/Users/pc/Documents/workspace-sts-3.9.6.RELEASE/'
+        local_path_list=config_info['local_path_list']
         temp_path=config_info['temp_path']
         cloud_path=config_info['cloud_path']
 
         include_suffix=config_info['include_suffix']
-        #include_file=['Makefile','makefile']
         bucket_name=config_info['bucket_name']
         auth=oss2.Auth(accessKeyId,accessKeySecret)
         bucket=oss2.Bucket(auth,endpoint,bucket_name)
         local_workspace_name=config_info['local_workspace_name']
         temp_cachespace_name=config_info['temp_cachespace_name']
         show_info=config_info['show_info']
+        log_level=config_info['log_level']
 
 src_file_list=[]
 temp_file_list=[]
@@ -325,10 +326,26 @@ def interact(temp_show_info):
 
 
 if __name__ == '__main__':
-    # 设置日志等级
-    log_file_path = "oss2_sync.log"
-    oss2.set_file_logger(log_file_path, 'oss2', logging.CRITICAL)
     init()
+    log_file_path = "oss2_sync.log"
+    # 设置日志等级
+    print("log_level: "+log_level)
+    if log_level=='NOTSET':
+        oss2.set_file_logger(log_file_path, 'oss2', logging.NOTSET)
+    elif log_level=='DEBUG':
+        oss2.set_file_logger(log_file_path, 'oss2', logging.DEBUG)
+    elif log_level=='INFO':
+        oss2.set_file_logger(log_file_path, 'oss2', logging.INFO)
+    elif log_level=='WARNING':
+        oss2.set_file_logger(log_file_path, 'oss2', logging.WARNING)
+    elif log_level=='ERROR':
+        print("ERROR")
+        oss2.set_file_logger(log_file_path, 'oss2', logging.ERROR)
+    elif log_level=='CRITICAL':
+        oss2.set_file_logger(log_file_path, 'oss2', logging.ERROR)
+    else:#默认INFO等级
+        oss2.set_file_logger(log_file_path, 'oss2', logging.INFO)
+
     interact(show_info)
 
 

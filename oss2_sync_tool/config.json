@@ -22,6 +22,8 @@
         "ipynb",
         "sln",
 
+        "",
+
         "xml",
         "proto",
         "md",
@@ -46,7 +48,7 @@
     "local_workspace_name": "$WorkSpace$",
     "temp_cachespace_name": "oss2_sync_tool Cache",
 
-    "log_level": "INFO",
+    "log_level": "CRITICAL",
     "show_info": true
 
 }

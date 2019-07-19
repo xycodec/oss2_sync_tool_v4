@@ -21,11 +21,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="oss2_sync_tool.py" />
     <Compile Include="oss2_sync_tool_v4.py" />
-    <Compile Include="oss2_sync_tool_v2.py">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="my_utils.py">
       <SubType>Code</SubType>
     </Compile>

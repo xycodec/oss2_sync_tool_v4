@@ -339,7 +339,6 @@ if __name__ == '__main__':
     elif log_level=='WARNING':
         oss2.set_file_logger(log_file_path, 'oss2', logging.WARNING)
     elif log_level=='ERROR':
-        print("ERROR")
         oss2.set_file_logger(log_file_path, 'oss2', logging.ERROR)
     elif log_level=='CRITICAL':
         oss2.set_file_logger(log_file_path, 'oss2', logging.ERROR)

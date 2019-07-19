@@ -35,6 +35,15 @@ def newer(srcEntry,destEntry):
     dest_last_modified_time=int(statinfo.st_mtime)
     return src_last_modified_time>dest_last_modified_time
 
+def getSuffix(_filepath):
+    filepath=format(_filepath)
+    filename=filepath.split('/')[-1]
+    if len(filename.split('.'))==1:
+        return ""
+    else:
+        return filename.split('.')[-1]
+
+
 #扫描目录的函数,并将符合的文件路径存储到src_file_list中
 def scan(path,src_file_list,include_suffix):
     if not os.path.exists(path):
@@ -44,7 +53,7 @@ def scan(path,src_file_list,include_suffix):
            if not entry.split('/')[-1][0] in ['.']:
             scan(path+'/'+entry,src_file_list,include_suffix)
     else:#递归到文件了
-        if (path.split('.')[-1].lower() in include_suffix and not path.split('/')[-1][0] in ['~','$']) or path.split('.')[0]==path:#对于没有后缀的文件如Makefile等; ~,$开头的文件一般是Office的临时文件,不去更新它
+        if (getSuffix(path) in include_suffix and not path.split('/')[-1][0] in ['~','$']):#~,$开头的文件一般是Office的临时文件,不去更新它
             src_file_list.append(path)
             #print(path)
        

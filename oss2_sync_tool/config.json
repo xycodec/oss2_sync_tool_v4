@@ -1,8 +1,8 @@
 {
-    "endpoint": "http://oss-cn-shanghai.aliyuncs.com",
+    "endpoint": "http://oss-cn-chengdu.aliyuncs.com",
     "accessKeyId": "LTAIN9dpiT1Lm95K",
     "accessKeySecret": "pOTfGEaMRnvpRU3aHcAxw3rEwgLZ3n",
-    "bucket_name": "xycode2",
+    "bucket_name": "tiancai-cup",
     "local_path_list": [
         "C:/Users/xycode/Documents/$WorkSpace$/",
         "C:/$WorkSpace$/",

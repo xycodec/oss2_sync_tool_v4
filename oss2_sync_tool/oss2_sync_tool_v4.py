@@ -13,6 +13,7 @@ local_path_list=[]
 temp_path=''
 cloud_path=''
 include_suffix=[]
+exclude_suffix=[]
 bucket_name=''
 auth=object()
 bucket=object()
@@ -20,6 +21,8 @@ local_workspace_name=''
 temp_cachespace_name=''
 show_info=True
 log_level=''
+CThread_num=1
+UThread_num=1
 def init():
     with open('config.json','r') as f:
         config_info=json.load(f)
@@ -32,6 +35,7 @@ def init():
         global temp_path
         global cloud_path
         global include_suffix
+        global exclude_suffix
         global bucket_name
         global auth
         global bucket
@@ -39,6 +43,9 @@ def init():
         global temp_cachespace_name
         global show_info
         global log_level
+        global CThread_num
+        global UThread_num
+
         endpoint=config_info['endpoint']
         accessKeyId=config_info['accessKeyId']
         accessKeySecret=config_info['accessKeySecret']
@@ -47,6 +54,7 @@ def init():
         cloud_path=config_info['cloud_path']
 
         include_suffix=config_info['include_suffix']
+        exclude_suffix=config_info['exclude_suffix']
         bucket_name=config_info['bucket_name']
         auth=oss2.Auth(accessKeyId,accessKeySecret)
         bucket=oss2.Bucket(auth,endpoint,bucket_name)
@@ -54,6 +62,8 @@ def init():
         temp_cachespace_name=config_info['temp_cachespace_name']
         show_info=config_info['show_info']
         log_level=config_info['log_level']
+        CThread_num=config_info['CThread_num']
+        UThread_num=config_info['UThread_num']
 
 src_file_list=[]
 temp_file_list=[]
@@ -77,7 +87,7 @@ def generate_path(base_path,entry,workspace_name):
     return utils.format(base_path+entry.split(workspace_name)[1])
 
 #扫描源目录,并生成临时存储信息到temp_file_list,然后根据temp_file_list来更新临时文件
-def src2temp(temp_path,thread_number=16):
+def src2temp(temp_path,thread_number=20):
     #1.扫描源目录,并将符合的文件路径存储到src_file_list
     for entry_path in local_path_list:
         utils.scan(entry_path,src_file_list,include_suffix)
@@ -121,9 +131,9 @@ def update_file(temp_file_list,sep_path):
         
 
 #将临时文件同步更新到云端,不直接从源文件同步到云端,做了隔离,对源文件只有read权限,对临时文件才有write权限
-def temp2cloud(endpoint,accessKeyId,accessKeySecret,thread_number=20):
+def temp2cloud(endpoint,accessKeyId,accessKeySecret,thread_number):
     #扫描源目录,并生成临时存储信息到temp_file_list,然后根据temp_file_list来更新临时文件
-    src2temp(temp_path)
+    src2temp(temp_path,CThread_num)
     #if not bucket.object_exists(cloud_path):
     #    bucket.put_object(cloud_path)
     
@@ -191,7 +201,7 @@ def ls_part(ls_list):
                 ls_update_list.append(generate_path(temp_path,entry,local_workspace_name))
 
 
-def ls(thread_number=24):
+def ls(thread_number=20):
     ls_list=[]#存放扫描的结果
     for entry_list in local_path_list:
         utils.scan(entry_list,ls_list,include_suffix)
@@ -246,12 +256,12 @@ def interact(temp_show_info):
     if temp_show_info: print_info()
     command=input('please input a legal commmad:\n')
     if command=='ls':
-        ls()
+        ls(UThread_num)
         if temp_show_info:
             interact(True)
         else:
             interact(False)
-    elif command=='ls -u':
+    elif command=='ls -u':#ls -u需配合ls命令来使用,考虑到ls得到的文件数目较少,因此采取单线程更新,如果要更新大量文件,请采用update命令,ls命令更多的是一种查看待更新文件的命令,其搭配update命令来使用也是可以的
         if ls_update_list==[]:
             print("ls_update_list is empty,no need to update.")
             print("please check for updates to execute command \'ls\' firstly.")
@@ -292,7 +302,7 @@ def interact(temp_show_info):
         if not os.path.exists(temp_path):
             os.makedirs(temp_path)
         #src2temp(temp_path)
-        temp2cloud(endpoint,accessKeyId,accessKeySecret)
+        temp2cloud(endpoint,accessKeyId,accessKeySecret,UThread_num)
         if temp_show_info:
             interact(True)
         else:

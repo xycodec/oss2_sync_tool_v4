@@ -3,6 +3,11 @@
     "accessKeyId": "LTAIN9dpiT1Lm95K",
     "accessKeySecret": "pOTfGEaMRnvpRU3aHcAxw3rEwgLZ3n",
     "bucket_name": "xycode2",
+    "bucket_list": [
+        "xycode1",
+        "xycode2"
+    ],
+    "bucket_list_comments": "bucket_list作为备选bucket,由于endpoint的限制,最好只存放同一区域下的bucket,否则切换会失败",
     "local_path_list": [
         "C:/Users/xycode/Documents/$WorkSpace$/",
         "C:/$WorkSpace$/",
@@ -55,7 +60,7 @@
     "temp_cachespace_name": "oss2_sync_tool Cache",
 
     "log_level": "CRITICAL",
-    "show_info": true
+    "show_help_info": true
 
 }
 

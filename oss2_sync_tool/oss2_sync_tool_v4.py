@@ -15,11 +15,12 @@ cloud_path=''
 include_suffix=[]
 exclude_suffix=[]
 bucket_name=''
+bucket_list=[]
 auth=object()
 bucket=object()
 local_workspace_name=''
 temp_cachespace_name=''
-show_info=True
+show_help_info=True
 log_level=''
 CThread_num=1
 UThread_num=1
@@ -37,11 +38,12 @@ def init():
         global include_suffix
         global exclude_suffix
         global bucket_name
+        global bucket_list
         global auth
         global bucket
         global local_workspace_name
         global temp_cachespace_name
-        global show_info
+        global show_help_info
         global log_level
         global CThread_num
         global UThread_num
@@ -56,11 +58,12 @@ def init():
         include_suffix=config_info['include_suffix']
         exclude_suffix=config_info['exclude_suffix']
         bucket_name=config_info['bucket_name']
+        bucket_list=config_info['bucket_list']
         auth=oss2.Auth(accessKeyId,accessKeySecret)
         bucket=oss2.Bucket(auth,endpoint,bucket_name)
         local_workspace_name=config_info['local_workspace_name']
         temp_cachespace_name=config_info['temp_cachespace_name']
-        show_info=config_info['show_info']
+        show_help_info=config_info['show_help_info']
         log_level=config_info['log_level']
         CThread_num=config_info['CThread_num']
         UThread_num=config_info['UThread_num']
@@ -162,18 +165,18 @@ def temp2cloud(endpoint,accessKeyId,accessKeySecret,thread_number):
 
 
 def print_info():
-    print('*************** oss2_sync_tool_v4 **********************')
-    print('* input ls:  list the files that need to be updated.   *')
-    print('* input ls -u:  update list after execute ls.          *')
-    print('* input update:  update all files.                     *')
-    print('* input cfg-s:  configure include_suffix.              *')
-    print('* input cfg-n:  configure oss2-bucket-name.            *')
-    print('* input restore:  restore to the original state.       *')
-    print('* input clear:  clear all temp files.                  *')
-    print('* input show-info:  set up display information or not. *')
-    print('* input help:  show the help information.              *')
-    print('* input q:  exit the program.                          *')
-    print('*************************************** --xycode *******')
+    print('*************** oss2_sync_tool_v4 ***************************')
+    print('* input ls:  list the files that need to be updated.        *')
+    print('* input ls -u:  update list after execute ls.               *')
+    print('* input update:  update all files.                          *')
+    print('* input cfg-s:  configure include_suffix.                   *')
+    print('* input cfg-n:  configure oss2-bucket-name.                 *')
+    print('* input restore:  restore to the original state.            *')
+    print('* input clear:  clear all temp files.                       *')
+    print('* input show-info:  set up display help information or not. *')
+    print('* input help:  show the help information.                   *')
+    print('* input q:  exit the program.                               *')
+    print('******************************************* --xycode ********')
 
 ls_update_list=[]#待更新列表
 def ls_part(ls_list):
@@ -252,12 +255,12 @@ def restore():
     include_suffix=store_include_suffix.copy()
 
 
-def interact(temp_show_info):
-    if temp_show_info: print_info()
+def interact(temp_show_help_info):
+    if temp_show_help_info: print_info()
     command=input('please input a legal commmad:\n')
     if command=='ls':
         ls(UThread_num)
-        if temp_show_info:
+        if temp_show_help_info:
             interact(True)
         else:
             interact(False)
@@ -268,31 +271,31 @@ def interact(temp_show_info):
         else:
             update_file(ls_update_list,temp_cachespace_name)
         ls_update_list.clear()
-        if temp_show_info:
+        if temp_show_help_info:
             interact(True)
         else:
             interact(False)
     elif command=='cfg-s':
         cfg_suffix()
-        if temp_show_info:
+        if temp_show_help_info:
             interact(True)
         else:
             interact(False)
     elif command=='cfg-n':
         global bucket
-        oss2_bucket_name=input('please input oss2-bucket-name:\n(legal name: [\'xycode1\',\'xycode2\'])\n')
+        oss2_bucket_name=input('please input oss2-bucket-name:\n(legal name: '+str(bucket_list)+'\n')
         if oss2_bucket_name in ['xycode1','xycode2']:
             bucket=oss2.Bucket(auth,endpoint,oss2_bucket_name)
         else:
             print('illegal oss2-bucket-name!')
-        if temp_show_info:
+        if temp_show_help_info:
             interact(True)
         else:
             interact(False)
     elif command=='restore':
         restore()
         print('restore OK.')
-        if temp_show_info:
+        if temp_show_help_info:
             interact(True)
         else:
             interact(False)
@@ -303,25 +306,25 @@ def interact(temp_show_info):
             os.makedirs(temp_path)
         #src2temp(temp_path)
         temp2cloud(endpoint,accessKeyId,accessKeySecret,UThread_num)
-        if temp_show_info:
+        if temp_show_help_info:
             interact(True)
         else:
             interact(False)
     elif command=='clear':
         clear()
-        if temp_show_info:
+        if temp_show_help_info:
             interact(True)
         else:
             interact(False)
     elif command=='help':
         print_info()
-        if temp_show_info:
+        if temp_show_help_info:
             interact(True)
         else:
             interact(False)
     elif command=='show-info':
         s=input('show?(y/n)\n')
-        if s in ['Y','y']:
+        if s in ['Y','y','yes','Yes','YES']:
             interact(True)
         else:
             interact(False)
@@ -329,7 +332,7 @@ def interact(temp_show_info):
         return
     else:
         print('incorrect command,please input again.')
-        if temp_show_info:
+        if temp_show_help_info:
             interact(True)
         else:
             interact(False)
@@ -355,6 +358,6 @@ if __name__ == '__main__':
     else:#默认INFO等级
         oss2.set_file_logger(log_file_path, 'oss2', logging.INFO)
 
-    interact(show_info)
+    interact(show_help_info)
 
 

@@ -55,7 +55,7 @@
 
     "CThread_num": 16,
     "UThread_num": 16,
-
+    "Thread_num_comments": "CThread_num是生成缓存所用的线程数,UThread_num是更新上传文件所用的线程数对应update与ls,不包括ls -u, ls -u实际上是单线程的)",
     "local_workspace_name": "$WorkSpace$",
     "temp_cachespace_name": "oss2_sync_tool Cache",
 

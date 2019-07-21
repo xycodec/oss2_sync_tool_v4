@@ -4,12 +4,13 @@
 我是用来同步代码文件的，当然其他类型的文件也可以。
 
 注意：
-使用前须将
-endpoint
+使用前须将config.json文件
+中的endpoint
 accessKeyId
 accessKeySecret
 替换为自己的，以及需要在在oss2控制台上新建一个Bucket
 然后将Bucket_name替换为自己的Bucket_name
+
 auth=oss2.Auth(accessKeyId,accessKeySecret)
 bucket=oss2.Bucket(auth,endpoint,Bucket_name)
 

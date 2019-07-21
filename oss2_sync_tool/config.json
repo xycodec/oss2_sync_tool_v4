@@ -1,13 +1,13 @@
 {
-    "endpoint": "http://oss-cn-shanghai.aliyuncs.com",
-    "accessKeyId": "LTAIN9dpiT1Lm95K",
-    "accessKeySecret": "pOTfGEaMRnvpRU3aHcAxw3rEwgLZ3n",
-    "bucket_name": "xycode2",
+    "endpoint": "",
+    "accessKeyId": "",
+    "accessKeySecret": "",
+    "bucket_name": "",
     "bucket_list": [
-        "xycode1",
-        "xycode2"
+        "",
+        ""
     ],
-    "bucket_list_comments": "bucket_list×÷Îª±¸Ñ¡bucket,ÓÉÓÚendpointµÄÏŞÖÆ,×îºÃÖ»´æ·ÅÍ¬Ò»ÇøÓòÏÂµÄbucket,·ñÔòÇĞ»»»áÊ§°Ü",
+    "bucket_list_comments": "bucket_listä½œä¸ºå¤‡é€‰bucket,ç”±äºendpointçš„é™åˆ¶,æœ€å¥½åªå­˜æ”¾åŒä¸€åŒºåŸŸä¸‹çš„bucket,å¦åˆ™åˆ‡æ¢ä¼šå¤±è´¥",
     "local_path_list": [
         "C:/Users/xycode/Documents/$WorkSpace$/",
         "C:/$WorkSpace$/",
@@ -55,7 +55,7 @@
 
     "CThread_num": 16,
     "UThread_num": 16,
-    "Thread_num_comments": "CThread_numÊÇÉú³É»º´æËùÓÃµÄÏß³ÌÊı,UThread_numÊÇ¸üĞÂÉÏ´«ÎÄ¼şËùÓÃµÄÏß³ÌÊı¶ÔÓ¦updateÓëls,²»°üÀ¨ls -u, ls -uÊµ¼ÊÉÏÊÇµ¥Ïß³ÌµÄ)",
+    "Thread_num_comments": "CThread_numæ˜¯ç”Ÿæˆç¼“å­˜æ‰€ç”¨çš„çº¿ç¨‹æ•°,UThread_numæ˜¯æ›´æ–°ä¸Šä¼ æ–‡ä»¶æ‰€ç”¨çš„çº¿ç¨‹æ•°å¯¹åº”updateä¸ls,ä¸åŒ…æ‹¬ls -u, ls -uå®é™…ä¸Šæ˜¯å•çº¿ç¨‹çš„)",
     "local_workspace_name": "$WorkSpace$",
     "temp_cachespace_name": "oss2_sync_tool Cache",
 

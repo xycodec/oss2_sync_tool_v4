@@ -11,8 +11,12 @@ accessKeySecret
 替换为自己的，以及需要在在oss2控制台上新建一个Bucket
 然后将Bucket_name替换为自己的Bucket_name
 
-auth=oss2.Auth(accessKeyId,accessKeySecret)
-bucket=oss2.Bucket(auth,endpoint,Bucket_name)
+local_path_list
+temp_path
+cloud_path
+local_workspace_name
+temp_cachespace_name
+也可一一配置为自己的
 
 **版本4:  
 

@@ -122,7 +122,7 @@ def update_file(temp_file_list,sep_path):
     for entry in temp_file_list:
         #拆分本地目录名和文件名,生成云路径
         tmp_cloud_path=generate_path(cloud_path,entry,sep_path)
-        print(tmp_cloud_path)
+        #print(tmp_cloud_path)
         utils.update_file(bucket,
                     '/'.join(entry.split('/')[:-1])+'/',
                     entry.split('/')[-1],

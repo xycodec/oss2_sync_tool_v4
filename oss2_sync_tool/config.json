@@ -1,4 +1,5 @@
 {
+    "first comments": "使用该工具之前请将endpoint,accessKeyId,accessKeySecret,bucket_name,local_path_list,temp_path,cloud_path等属性设置成自己的",
     "endpoint": "http://oss-cn-shanghai.aliyuncs.com",
     "accessKeyId": "LTAIN9dpiT1Lm95K",
     "accessKeySecret": "pOTfGEaMRnvpRU3aHcAxw3rEwgLZ3n",

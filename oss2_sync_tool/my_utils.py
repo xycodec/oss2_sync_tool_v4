@@ -19,13 +19,14 @@ def update_file(bucket,local_file_path,local_filename,cloud_file_path,cloud_file
 			# print(local_last_modified_time,cloud_last_modified_time)
 			if local_last_modified_time>cloud_last_modified_time:
 				#如果本地的文件较新才更新到云端
-				print('[update] '+local_filename+'.')
+				print('[update] '+cloud_file_path+cloud_filename+'.')
 				bucket.put_object(cloud_file_path+cloud_filename,f)#将本地文件更新到云端cloud_file_path+cloud_filename
 			else:
-				print("[scan] "+local_file_path+local_filename)
+				print('[scan] '+local_file_path+local_filename+'.')
 				print(cloud_filename+' already up-to-date.')
 		else:
 			print(cloud_filename+' does not exist,start upload...')
+			print('[upload] '+local_file_path+local_filename+'.')
 			bucket.put_object(cloud_file_path+cloud_filename,f)#将本地文件上传到云端cloud_file_path+cloud_filename
 
 #判断源文件与临时文件哪个较新

@@ -1,4 +1,3 @@
-#coding=utf-8
 import os,shutil
 import oss2
 import logging
@@ -330,6 +329,11 @@ def interact(temp_show_help_info):
             interact(False)
     elif command in ['q','exit','quit']:
         return
+    elif len(command)==0:
+        if temp_show_help_info:
+            interact(True)
+        else:
+            interact(False)
     else:
         print('incorrect command,please input again.')
         if temp_show_help_info:
